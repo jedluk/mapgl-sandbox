@@ -6,17 +6,18 @@ interface LayerProps {
   map: Map;
   source: LayerSpecification;
   onRefresh: () => void;
+  onEdit: (layerId: string) => void;
 }
 
 export function Layer(props: LayerProps) {
-  const { source, map, onRefresh } = props;
-  const { layout = {}, id } = source;
+  const { source, map, onRefresh, onEdit } = props;
+  const { layout, id } = source;
 
-  const isVisible = layout.visibility === "visible";
+  const isVisible = layout?.visibility === "visible";
 
   const handleVisbilityChange = () => {
-    const visibility = isVisible ? "none" : "visible";
-    map.setLayoutProperty(id, "visibility", visibility);
+    const nextVisibility = isVisible ? "none" : "visible";
+    map.setLayoutProperty(id, "visibility", nextVisibility);
     onRefresh();
   };
 
@@ -28,7 +29,7 @@ export function Layer(props: LayerProps) {
         onChange={handleVisbilityChange}
       />
       {id}
-      <button>Edit</button>
+      <button onClick={() => onEdit(id)}>Edit</button>
     </div>
   );
 }
