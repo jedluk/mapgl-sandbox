@@ -1,16 +1,17 @@
 import React from "react";
-import style from "./App.module.css";
-import { LayerSpecification, Map } from "maplibre-gl";
+import style from "./LayersControl.module.css";
+import { LayerSpecification } from "maplibre-gl";
+import { Map } from "maplibre-gl";
 
 interface LayerProps {
   map: Map;
   source: LayerSpecification;
-  onRefresh: () => void;
+  onChange: () => void;
   onEdit: (layerId: string) => void;
 }
 
 export function Layer(props: LayerProps) {
-  const { source, map, onRefresh, onEdit } = props;
+  const { source, map, onChange, onEdit } = props;
   const { layout, id } = source;
 
   const isVisible = layout?.visibility === "visible";
@@ -18,7 +19,7 @@ export function Layer(props: LayerProps) {
   const handleVisbilityChange = () => {
     const nextVisibility = isVisible ? "none" : "visible";
     map.setLayoutProperty(id, "visibility", nextVisibility);
-    onRefresh();
+    onChange();
   };
 
   return (

@@ -1,27 +1,32 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import MapGL, { MapboxEvent, NavigationControl } from "react-map-gl";
 import maplibregl, { Map, LayerSpecification } from "maplibre-gl";
 
 import "maplibre-gl/dist/maplibre-gl.css";
-import style from "./App.module.css";
 import { INITIAL_VIEW } from "./config";
-import { isNotNull } from "./lib";
 import { Maybe } from "./types";
-import { Layer } from "./Layer";
-import { EditLayer } from "./EditLayer";
+import { LayersControl } from "./LayersControl";
+import { isNotNull } from "./lib";
+import { useEffect } from "react";
 
 function App() {
   const [map, setMap] = useState<Maybe<Map>>(null);
+
   const [refreshToken, setRefreshToken] = useState<number>(Date.now());
-  const [editableLayer, setEditableLayer] = useState("");
   const [mapLayers, setMapLayers] = useState<LayerSpecification[]>([]);
+  const [touchLayer, setTouchLayer] = useState("");
+
+  const interactiveLayersIds = useMemo(
+    () => mapLayers.map((layer) => layer.id),
+    [mapLayers]
+  );
 
   const handleMapLoad = useCallback(
     (event: MapboxEvent) => setMap(event.target as unknown as Map),
     []
   );
 
-  const refresh = useCallback(() => setRefreshToken(Date.now()), []);
+  const handleChange = useCallback(() => setRefreshToken(Date.now()), []);
 
   useEffect(() => {
     if (isNotNull(map)) {
@@ -29,47 +34,18 @@ function App() {
     }
   }, [map, refreshToken]);
 
-  console.log({ editableLayer });
-
   return (
     <MapGL
       reuseMaps
+      cursor="crosshair"
       onLoad={handleMapLoad}
       initialViewState={INITIAL_VIEW}
+      interactiveLayerIds={interactiveLayersIds}
       mapLib={maplibregl}
       mapStyle={`${process.env.PUBLIC_URL}/mapStyle.json`}
     >
-      <NavigationControl position="bottom-right"/>
-      {isNotNull(map) && mapLayers.length > 0 && (
-        <div
-          className={style.layers}
-          style={{ width: editableLayer !== "" ? "fit-content" : 300 }}
-        >
-          {editableLayer === "" ? (
-            mapLayers.map((layer) => (
-              <Layer
-                key={layer.id}
-                map={map}
-                source={layer}
-                onRefresh={refresh}
-                onEdit={setEditableLayer}
-              />
-            ))
-          ) : (
-            <Fragment>
-              <button
-                className={style.close}
-                onClick={() => setEditableLayer("")}
-              >
-                X
-              </button>
-              <EditLayer
-                source={mapLayers.filter((l) => l.id === editableLayer)[0]}
-              />
-            </Fragment>
-          )}
-        </div>
-      )}
+      <NavigationControl position="bottom-right" />
+      <LayersControl map={map} layers={mapLayers} onChange={handleChange} />
     </MapGL>
   );
 }
