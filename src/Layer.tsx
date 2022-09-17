@@ -6,12 +6,12 @@ import { Map } from "maplibre-gl";
 interface LayerProps {
   map: Map;
   source: LayerSpecification;
-  onChange: () => void;
   onEdit: (layerId: string) => void;
+  onChange: () => void;
 }
 
 export function Layer(props: LayerProps) {
-  const { source, map, onChange, onEdit } = props;
+  const { source, map, onEdit, onChange } = props;
   const { layout, id } = source;
 
   const isVisible = layout?.visibility === "visible";
@@ -29,7 +29,7 @@ export function Layer(props: LayerProps) {
         checked={isVisible}
         onChange={handleVisbilityChange}
       />
-      {id}
+      <span>{id}</span>
       <button onClick={() => onEdit(id)}>Edit</button>
     </div>
   );

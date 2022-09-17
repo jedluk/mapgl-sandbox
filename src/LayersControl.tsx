@@ -15,7 +15,7 @@ interface LayersControlProps {
 }
 
 export function LayersControl(props: LayersControlProps) {
-  const { map, layers } = props;
+  const { map, layers, onChange } = props;
 
   const [editableLayer, setEditableLayer] = useState("");
 
@@ -34,7 +34,7 @@ export function LayersControl(props: LayersControlProps) {
             key={layer.id}
             map={map}
             source={layer}
-            onChange={props.onChange}
+            onChange={onChange}
             onEdit={setEditableLayer}
           />
         ))
