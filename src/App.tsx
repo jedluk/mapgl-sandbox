@@ -1,23 +1,21 @@
 import 'maplibre-gl/dist/maplibre-gl.css'
 
+import { MapLayerMouseEvent } from 'mapbox-gl'
+import maplibregl, { Map, MapGeoJSONFeature } from 'maplibre-gl'
 import React, { useCallback, useState } from 'react'
 import MapGL, { MapboxEvent, NavigationControl } from 'react-map-gl'
-import maplibregl, { Map, MapGeoJSONFeature } from 'maplibre-gl'
-import { MapLayerMouseEvent } from 'mapbox-gl'
-
-import { Maybe } from './types'
-import { LayersControl } from './LayersControl'
-import { isNull, isNotNull } from './lib'
-import { Popup } from './Popup'
-import { useAutoRefresh } from './hooks/useAutoRefresh.hook'
-import { Polygon } from './Polygon'
-import { useKeyboardListener } from './hooks/useKeyboardListener.hook'
 import { useBoolean } from 'use-boolean'
 
-// Jerusalem #11/31.77/35.21/0/0
-// Szczecin  #11/53.42/14.55/0/0
+import { useAutoRefresh } from './hooks/useAutoRefresh.hook'
+import { useKeyboardListener } from './hooks/useKeyboardListener.hook'
+import { useURLHash } from './hooks/useURLHash.hook'
+import { LayersControl } from './LayersControl'
+import { isNotNull, isNull } from './lib'
+import { Polygon } from './Polygon'
+import { Popup } from './Popup'
+import { Maybe } from './types'
 
-function App() {
+export function App() {
   const [map, setMap] = useState<Maybe<Map>>(null)
   const [feature, setFeature] = useState<Maybe<MapGeoJSONFeature>>(null)
 
@@ -43,6 +41,8 @@ function App() {
     [map]
   )
 
+  // Jerusalem 11/31.77/35.21/0/0
+  useURLHash('11/53.42/14.55/0/0')
   useKeyboardListener('s', requestDetail, resetDetail)
 
   const mapLayers = map?.getStyle().layers ?? []
@@ -64,5 +64,3 @@ function App() {
     </MapGL>
   )
 }
-
-export default App
