@@ -6,19 +6,18 @@ import { MapGeoJSONFeature } from 'maplibre-gl'
 import { isNotNull } from './lib/index'
 
 interface PopupProps {
-  features: Maybe<MapGeoJSONFeature>
+  feature: Maybe<MapGeoJSONFeature>
 }
 
 export function Popup(props: PopupProps) {
-  const { features } = props
+  const { feature } = props
 
-  const displayProperties = useMemo(
-    () =>
-      isNotNull(features)
-        ? Object.entries(features).reduce(toDisplayProperties, {})
-        : '',
-    [features]
-  )
+  const displayProperties = useMemo(() => {
+    console.log(feature)
+    return isNotNull(feature)
+      ? Object.entries(feature).reduce(toDisplayProperties, {})
+      : ''
+  }, [feature])
 
   return (
     <div className={style.popup}>

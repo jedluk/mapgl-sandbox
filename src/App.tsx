@@ -16,7 +16,7 @@ import { useAutoRefresh } from './hooks/useAutoRefresh.hook'
 
 function App() {
   const [map, setMap] = useState<Maybe<Map>>(null)
-  const [features, setFeatures] = useState<Maybe<MapGeoJSONFeature>>(null)
+  const [feature, setFeature] = useState<Maybe<MapGeoJSONFeature>>(null)
   const [, refresh] = useAutoRefresh(1000, false)
 
   const handleMapLoad = useCallback(
@@ -33,7 +33,7 @@ function App() {
         event.point as unknown as [number, number]
       )
 
-      setFeatures(features[0] ?? null)
+      setFeature(features[0] ?? null)
     },
     [map]
   )
@@ -52,7 +52,7 @@ function App() {
     >
       <NavigationControl position="bottom-right" />
       <LayersControl map={map} layers={mapLayers} onChange={refresh} />
-      <Popup features={features} />
+      <Popup feature={feature} />
     </MapGL>
   )
 }
