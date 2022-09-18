@@ -10,7 +10,7 @@ import { useAutoRefresh } from './hooks/useAutoRefresh.hook'
 import { useKeyboardListener } from './hooks/useKeyboardListener.hook'
 import { useURLHash } from './hooks/useURLHash.hook'
 import { LayersControl } from './LayersControl'
-import { isNotNull, isNull } from './lib'
+import { isNotNull, isNotUndefined, isNull } from './lib'
 import { Polygon } from './Polygon'
 import { Popup } from './Popup'
 import { Maybe } from './types'
@@ -22,10 +22,20 @@ export function App() {
   const [isDetailRequested, requestDetail, resetDetail] = useBoolean(false)
   const [, refresh] = useAutoRefresh(1000, false)
 
-  const handleMapLoad = useCallback(
-    (event: MapboxEvent) => setMap(event.target as unknown as Map),
-    []
-  )
+  const handleMapLoad = useCallback((event: MapboxEvent) => {
+    const map = event.target as unknown as Map
+    const { layers } = event.target.getStyle()
+    const someVisibilitytSet = layers.some((layer) =>
+      isNotUndefined(map.getLayoutProperty(layer.id, 'visibility'))
+    )
+    if (!someVisibilitytSet) {
+      // ensure layers have visibility property set
+      layers.forEach((layer) =>
+        map.setLayoutProperty(layer.id, 'visibility', 'visible')
+      )
+    }
+    setMap(map)
+  }, [])
 
   const queryRendererFeatures = useCallback(
     (event: MapLayerMouseEvent) => {
@@ -54,7 +64,7 @@ export function App() {
       cursor="crosshair"
       onLoad={handleMapLoad}
       mapLib={maplibregl}
-      mapStyle={`${process.env.PUBLIC_URL}/mapStyle.json`}
+      mapStyle={`${process.env.PUBLIC_URL}/osm_liberty.json`}
       onMouseMove={queryRendererFeatures}
     >
       <NavigationControl position="bottom-right" />

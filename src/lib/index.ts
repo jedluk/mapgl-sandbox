@@ -7,7 +7,7 @@ export function defaultsTo<T, S>(
   return value === null || value === undefined ? defaultValue : value
 }
 
-export function keys<T extends Record<string, unknown>>(o: T): (keyof T)[] {
+export function keys<T extends object>(o: T): (keyof T)[] {
   return Object.keys(o) as (keyof T)[]
 }
 
