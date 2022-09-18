@@ -43,7 +43,7 @@ function App() {
     [map]
   )
 
-  useKeyboardListener('shift', requestDetail, resetDetail)
+  useKeyboardListener('s', requestDetail, resetDetail)
 
   const mapLayers = map?.getStyle().layers ?? []
 
