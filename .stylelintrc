@@ -1,0 +1,11 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "unit-allowed-list": ["rem", "s", "deg", "%", "fr", "px"],
+    "order/order": ["custom-properties", "declarations"],
+    "order/properties-alphabetical-order": true,
+    "selector-type-no-unknown": true,
+    "selector-class-pattern": "^[a-z][a-zA-Z0-9]+$"
+  }
+}

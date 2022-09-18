@@ -38,8 +38,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prettier": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"",
-    "prettier:check": "prettier --check \"src/**/*.ts\" \"src/**/*.tsx\""
+    "lint": "eslint 'src/**/*.{ts,tsx}' --max-warnings=0",
+    "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix",
+    "stylelint": "stylelint 'src/**/*.css'",
+    "stylelint:fix": "stylelint 'src/**/*.css' --fix",
+    "prettier": "prettier --write 'src/**/*.{ts,tsx}'",
+    "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'"
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +64,20 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^2.7.1"
+    "@typescript-eslint/parser": "^5.37.0",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.0.4",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.2",
+    "prettier": "^2.7.1",
+    "stylelint": "^14.11.0",
+    "stylelint-config-standard": "^28.0.0",
+    "stylelint-order": "^5.0.0"
   }
 }
