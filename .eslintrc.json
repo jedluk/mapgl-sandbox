@@ -19,6 +19,22 @@
       "sort-keys-fix",
       "jsx-a11y"
     ],
+    "rules":{
+      "no-else-return": "error",
+      "no-param-reassign": "error",
+      "no-implicit-coercion": "warn",
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
+      "prettier/prettier": "error",
+      "@typescript-eslint/no-explicit-any": "error",
+      "react/jsx-boolean-value": "error",
+      "@typescript-eslint/strict-boolean-expressions": "error",
+      "import/newline-after-import": "error",
+      "import/no-default-export": "error",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "error",
+      "import/no-unresolved": "error"
+    },
     "settings": {
         "import/parsers": {
             "@typescript-eslint/parser": [".ts", ".tsx"]

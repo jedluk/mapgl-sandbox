@@ -1,4 +1,5 @@
 import { MapGeoJSONFeature } from 'maplibre-gl'
+
 import { Maybe } from '../types'
 
 export const DISPLAY_PROPERTIES = [

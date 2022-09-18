@@ -1,6 +1,7 @@
+import { LayerSpecification, Map } from 'maplibre-gl'
 import React from 'react'
+
 import style from './LayersControl.module.css'
-import { LayerSpecification , Map } from 'maplibre-gl'
 
 interface LayerProps {
   map: Map

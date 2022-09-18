@@ -1,5 +1,5 @@
-import React from 'react'
 import { LayerSpecification } from 'maplibre-gl'
+import React from 'react'
 
 interface EditLayerProps {
   source: LayerSpecification

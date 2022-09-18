@@ -1,10 +1,11 @@
-import { MapGeoJSONFeature } from 'maplibre-gl'
-import { Source, Layer } from 'react-map-gl'
-import React, { useEffect, useRef, useState } from 'react'
 import { FeatureCollection } from 'geojson'
-import { Maybe } from './types'
+import { MapGeoJSONFeature } from 'maplibre-gl'
+import React, { useEffect, useRef, useState } from 'react'
+import { Layer, Source } from 'react-map-gl'
+
 import { isNull } from './lib'
 import { pickCoordinates } from './lib/features'
+import { Maybe } from './types'
 
 interface PolygonProps {
   feature: MapGeoJSONFeature
