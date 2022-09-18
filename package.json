@@ -31,7 +31,8 @@
     "react-dom": "^18.2.0",
     "react-map-gl": "^7.0.19",
     "react-scripts": "5.0.1",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.2",
+    "use-boolean": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

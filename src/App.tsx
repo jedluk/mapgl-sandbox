@@ -11,6 +11,8 @@ import { isNull } from './lib'
 import { Popup } from './Popup'
 import { useAutoRefresh } from './hooks/useAutoRefresh.hook'
 import { Polygon } from './Polygon'
+import { useKeyboardListener } from './hooks/useKeyboardListener.hook'
+import { useBoolean } from 'use-boolean'
 
 // Jerusalem #11/31.77/35.21/0/0
 // Szczecin  #11/53.42/14.55/0/0
@@ -18,7 +20,8 @@ import { Polygon } from './Polygon'
 function App() {
   const [map, setMap] = useState<Maybe<Map>>(null)
   const [feature, setFeature] = useState<Maybe<MapGeoJSONFeature>>(null)
-  const [isDetailRequested, setDeailRequested] = useState(false)
+
+  const [isDetailRequested, requestDetail, resetDetail] = useBoolean(false)
   const [, refresh] = useAutoRefresh(1000, false)
 
   const handleMapLoad = useCallback(
@@ -36,10 +39,11 @@ function App() {
       )
 
       setFeature(features[0] ?? null)
-      setDeailRequested(event.originalEvent.shiftKey)
     },
     [map]
   )
+
+  useKeyboardListener('shift', requestDetail, resetDetail)
 
   const mapLayers = map?.getStyle().layers ?? []
 
@@ -56,7 +60,7 @@ function App() {
       <NavigationControl position="bottom-right" />
       <LayersControl map={map} layers={mapLayers} onChange={refresh} />
       <Popup feature={feature} />
-      <Polygon active={isDetailRequested} feature={feature} />
+      <Polygon show={isDetailRequested} feature={feature} />
     </MapGL>
   )
 }

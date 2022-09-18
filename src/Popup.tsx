@@ -12,19 +12,24 @@ interface PopupProps {
 export function Popup(props: PopupProps) {
   const { feature } = props
 
-  const displayProperties = useMemo(() => {
-    console.log(feature)
-    return isNotNull(feature)
-      ? Object.entries(feature).reduce(toDisplayProperties, {})
-      : ''
-  }, [feature])
+  const displayProperties = useMemo(
+    () =>
+      isNotNull(feature)
+        ? JSON.stringify(
+            Object.entries(feature).reduce(toDisplayProperties, {}),
+            undefined,
+            2
+          )
+        : '',
+    [feature]
+  )
 
   if (displayProperties === '') {
     return null
   }
   return (
     <div className={style.popup}>
-      <pre>{JSON.stringify(displayProperties, null, 2)}</pre>
+      <pre>{displayProperties}</pre>
     </div>
   )
 }
