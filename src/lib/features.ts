@@ -1,6 +1,14 @@
-import { DISPLAY_PROPERTIES } from './config'
+export const DISPLAY_PROPERTIES = [
+  'type',
+  'properties',
+  'id',
+  'layer',
+  'source',
+  'sourceLayer',
+  'state'
+]
 
-export function toDisplayedProperties(
+export function toDisplayProperties(
   accumulator: Record<string, unknown>,
   entry: [string, number]
 ) {
