@@ -1,6 +1,6 @@
 import { MapGeoJSONFeature } from 'maplibre-gl'
 import { Source, Layer } from 'react-map-gl'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FeatureCollection } from 'geojson'
 import { Maybe } from './types'
 import { isNull } from './lib'
@@ -14,16 +14,22 @@ const REVERSE_SEARCH_URL = 'https://nominatim.openstreetmap.org/reverse'
 
 export function Polygon(props: PolygonProps) {
   const { feature } = props
+
+  const featureRef = useRef(feature)
+  const [geoJSON, setGeoJSON] = useState<Maybe<FeatureCollection>>(null)
+
   const { id = null } = feature
 
-  const [geoJSON, setGeoJSON] = useState<Maybe<FeatureCollection>>(null)
+  useEffect(() => {
+    featureRef.current = feature
+  }, [feature])
 
   useEffect(() => {
     if (isNull(id)) {
       return
     }
 
-    const coords = pickCoordinates(feature)
+    const coords = pickCoordinates(featureRef.current)
     if (isNull(coords)) {
       return
     }
