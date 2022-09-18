@@ -19,6 +19,9 @@ export function Popup(props: PopupProps) {
       : ''
   }, [feature])
 
+  if (displayProperties === '') {
+    return null
+  }
   return (
     <div className={style.popup}>
       <pre>{JSON.stringify(displayProperties, null, 2)}</pre>

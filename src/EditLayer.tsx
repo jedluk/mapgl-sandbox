@@ -16,7 +16,7 @@ export function EditLayer(props: EditLayerProps) {
   )
 
   return (
-    <div style={{ width: 'fit-content', height: '100%' }}>
+    <div>
       <pre dangerouslySetInnerHTML={{ __html }} />
     </div>
   )
