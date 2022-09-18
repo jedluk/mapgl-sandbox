@@ -1,8 +1,8 @@
-import React from "react";
-import style from "./Popup.module.css";
+import React from 'react'
+import style from './Popup.module.css'
 
 interface PopupProps {
-  features: string;
+  features: string
 }
 
 export function Popup(props: PopupProps) {
@@ -10,5 +10,5 @@ export function Popup(props: PopupProps) {
     <div className={style.popup}>
       <pre>{props.features}</pre>
     </div>
-  );
+  )
 }
