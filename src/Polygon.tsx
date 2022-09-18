@@ -1,34 +1,39 @@
 import { MapGeoJSONFeature } from 'maplibre-gl'
-import { useEffect, useState } from 'react'
+import { Source, Layer } from 'react-map-gl'
+import React, { useEffect, useState } from 'react'
+import { FeatureCollection } from 'geojson'
 import { Maybe } from './types'
-import { isNull, isNotNull } from './lib/index'
+import { isNull } from './lib'
 import { pickCoordinates } from './lib/features'
 
 interface PolygonProps {
-  show: boolean
-  feature: Maybe<MapGeoJSONFeature>
+  feature: MapGeoJSONFeature
 }
 
 const REVERSE_SEARCH_URL = 'https://nominatim.openstreetmap.org/reverse'
-//
-export function Polygon(props: PolygonProps) {
-  const { feature, show } = props
 
-  const [geoJSON, setGeoJSON] = useState<Maybe<MapGeoJSONFeature>>(null)
+export function Polygon(props: PolygonProps) {
+  const { feature } = props
+  const { id = null } = feature
+
+  const [geoJSON, setGeoJSON] = useState<Maybe<FeatureCollection>>(null)
 
   useEffect(() => {
-    if (!show || isNull(feature)) {
+    if (isNull(id)) {
       return
     }
-    const coords = isNotNull(feature) ? pickCoordinates(feature) : null
-    
+
+    const coords = pickCoordinates(feature)
     if (isNull(coords)) {
       return
     }
 
     const params = new URLSearchParams([
       ['accept-language', 'en'],
-      ['format', 'geojson'],
+      ['format', 'geocodejson'],
+      ['zoom', '18'],
+      ['limit', '1'],
+      ['polygon_geojson', '1'],
       ['lon', String(coords[0])],
       ['lat', String(coords[1])]
     ])
@@ -36,12 +41,27 @@ export function Polygon(props: PolygonProps) {
     window
       .fetch([REVERSE_SEARCH_URL, params].join('?'))
       .then((res) => res.json())
+      .then((data: FeatureCollection) => setGeoJSON(data))
       .catch(() => setGeoJSON(null))
-  }, [feature, show])
+  }, [id])
 
-  if (isNotNull(geoJSON)) {
-    console.log({ geoJSON })
+  if (isNull(geoJSON)) {
+    return null
   }
 
-  return null
+  return (
+    <Source id="requested-feature" type="geojson" data={geoJSON}>
+      <Layer
+        beforeId="building"
+        id="requested-feature"
+        type="fill-extrusion"
+        paint={{
+          'fill-extrusion-height': 30,
+          'fill-extrusion-base': 0,
+          'fill-extrusion-color': 'rgb(255, 77, 77)'
+        }}
+        source="requested-feature"
+      />
+    </Source>
+  )
 }

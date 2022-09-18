@@ -7,7 +7,7 @@ import { MapLayerMouseEvent } from 'mapbox-gl'
 
 import { Maybe } from './types'
 import { LayersControl } from './LayersControl'
-import { isNull } from './lib'
+import { isNull, isNotNull } from './lib'
 import { Popup } from './Popup'
 import { useAutoRefresh } from './hooks/useAutoRefresh.hook'
 import { Polygon } from './Polygon'
@@ -60,7 +60,7 @@ function App() {
       <NavigationControl position="bottom-right" />
       <LayersControl map={map} layers={mapLayers} onChange={refresh} />
       <Popup feature={feature} />
-      <Polygon show={isDetailRequested} feature={feature} />
+      {isNotNull(feature) && isDetailRequested && <Polygon feature={feature} />}
     </MapGL>
   )
 }

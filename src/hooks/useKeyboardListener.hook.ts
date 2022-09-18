@@ -6,17 +6,21 @@ export function useKeyboardListener(
   onKeyUp: () => void
 ): void {
   useEffect(() => {
-    function keyDownistener(evt: KeyboardEvent) {
-      if (evt.key.toLowerCase() === key.toLowerCase()) onKeyDown()
+    function keyDownListener(evt: KeyboardEvent) {
+      if (evt.key.toLowerCase() === key.toLowerCase()) {
+        onKeyDown()
+      }
     }
-    function keyUpListener() {
-      onKeyUp()
+    function keyUpListener(evt: KeyboardEvent) {
+      if (evt.key.toLowerCase() === key.toLowerCase()) {
+        onKeyUp()
+      }
     }
 
-    window.addEventListener('keydown', keyDownistener)
+    window.addEventListener('keydown', keyDownListener)
     window.addEventListener('keyup', keyUpListener)
     return () => {
-      window.removeEventListener('keydown', keyDownistener)
+      window.removeEventListener('keydown', keyDownListener)
       window.removeEventListener('keyup', keyUpListener)
     }
   }, [key, onKeyUp, onKeyDown])
