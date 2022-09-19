@@ -28,15 +28,18 @@ export function LayersControl(props: LayersControlProps) {
       style={{ width: editableLayer !== '' ? 'fit-content' : 300 }}
     >
       {editableLayer === '' ? (
-        layers.map((layer) => (
-          <Layer
-            key={layer.id}
-            map={map}
-            source={layer}
-            onChange={onChange}
-            onEdit={setEditableLayer}
-          />
-        ))
+        <Fragment>
+          <div className={style.header}>Map Layers</div>
+          {layers.map((layer) => (
+            <Layer
+              key={layer.id}
+              map={map}
+              source={layer}
+              onChange={onChange}
+              onEdit={setEditableLayer}
+            />
+          ))}
+        </Fragment>
       ) : (
         <Fragment>
           <button className={style.close} onClick={() => setEditableLayer('')}>

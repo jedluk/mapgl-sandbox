@@ -1,9 +1,11 @@
 :root {
   --font-family:  "Mulish";
+  --color-white: #fff;
   --color-grey-200: #e1eaf3;
   --color-grey-600: #95a2af;
   --color-grey-800: #6b7987;
   --color-grey-900: #46505a;
+  --color-green-600: #9f9;
   --font-s: normal 500 1rem / 1.3rem var(--font-family);
   --font-m: normal 500 1.2rem / 1.5rem var(--font-family);
   --font-l: normal 400 1.4rem / 1.8rem var(--font-family);
