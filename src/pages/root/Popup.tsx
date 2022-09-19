@@ -1,10 +1,10 @@
 import { MapGeoJSONFeature } from 'maplibre-gl'
 import React, { useMemo } from 'react'
 
-import { toDisplayProperties } from './lib/features'
-import { isNotNull } from './lib/index'
+import { toDisplayProperties } from '../../lib/features'
+import { isNotNull } from '../../lib/index'
+import { Maybe } from '../../types'
 import style from './Popup.module.css'
-import { Maybe } from './types'
 
 interface PopupProps {
   feature: Maybe<MapGeoJSONFeature>

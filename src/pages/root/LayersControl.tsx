@@ -1,11 +1,11 @@
 import { LayerSpecification, Map } from 'maplibre-gl'
 import React, { Fragment, useState } from 'react'
 
+import { isNull } from '../../lib'
+import { Maybe } from '../../types'
 import { EditLayer } from './EditLayer'
 import { Layer } from './Layer'
 import style from './LayersControl.module.css'
-import { isNull } from './lib'
-import { Maybe } from './types'
 
 interface LayersControlProps {
   map: Maybe<Map>

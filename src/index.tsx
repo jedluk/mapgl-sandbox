@@ -1,4 +1,5 @@
 import '@fontsource/mulish'
+import 'maplibre-gl/dist/maplibre-gl.css'
 import './index.css'
 
 import React from 'react'
