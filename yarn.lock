@@ -1208,6 +1208,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@fontsource/mulish@^4.5.12":
+  version "4.5.12"
+  resolved "https://registry.yarnpkg.com/@fontsource/mulish/-/mulish-4.5.12.tgz#6e309b49e6c5c4defc87edb803308337b39ec53b"
+  integrity sha512-rlM4VI9bvS9rxf1LxiSTmnFB7Pjca2NWnWxb/6L3XTWsRJJbc2PN5jenVDJtt/WEVSz18ZdDtYzE/xb1JUYSWQ==
+
 "@humanwhocodes/config-array@^0.10.4":
   version "0.10.4"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.10.4.tgz#01e7366e57d2ad104feea63e72248f22015c520c"

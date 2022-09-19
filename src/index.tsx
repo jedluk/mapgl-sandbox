@@ -1,3 +1,4 @@
+import '@fontsource/mulish'
 import './index.css'
 
 import React from 'react'
