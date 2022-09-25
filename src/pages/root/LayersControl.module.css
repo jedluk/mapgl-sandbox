@@ -58,7 +58,7 @@
 }
 
 .layer input[type="checkbox"]::before {
-  box-shadow: inset 1rem 1rem var( --color-green-600);
+  box-shadow: inset 1rem 1rem var(--color-green);
   content: "";
   height: 0.65rem;
   transform: scale(0);
@@ -82,7 +82,7 @@
 }
 
 .layer:hover button {
-  border: 1px solid var( --color-green-600);
+  border: 1px solid var(--color-green);
   display: block;
 }
 
@@ -91,7 +91,7 @@
 }
 
 .close {
-  background-color: var --color-green-600);
+  background-color: var(--color-green);
   border: none;
   color: white;
   float: right;

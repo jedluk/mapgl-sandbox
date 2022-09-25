@@ -40,7 +40,6 @@
   
   .close {
     all: unset;
-    background-image: url("/vector/close.svg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
